@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.api import router
 from app.metrics import setup_metrics
 from app.logging_utils import setup_logging
+from prometheus_fastapi_instrumentator import Instrumentator
 
 logger = setup_logging("app.main")
 
@@ -13,6 +14,10 @@ app = FastAPI(
 
 # Setup metrics
 setup_metrics(app)
+
+# Minimal Instrumentator setup
+instrumentator = Instrumentator()
+instrumentator.instrument(app).expose(app)
 
 # Add health check endpoint
 @app.get("/health")

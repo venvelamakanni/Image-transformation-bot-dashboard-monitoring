@@ -57,11 +57,6 @@ def setup_metrics(app):
     # Add default metrics
     instrumentator.add(metrics.default())
 
-    # Add custom metrics
-    @instrumentator.instrument()
-    def custom_metrics(info: Info) -> None:
-        # Add any custom metrics here
-        pass
-
-    # Instrument the app
-    instrumentator.instrument(app).expose(app) 
+    # Instrument the app and expose metrics
+    instrumentator.instrument(app)
+    instrumentator.expose(app, include_in_schema=True, should_gzip=True) 

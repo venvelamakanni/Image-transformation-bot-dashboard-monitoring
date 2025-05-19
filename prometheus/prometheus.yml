@@ -16,7 +16,7 @@ rule_files:
 scrape_configs:
   - job_name: 'image-transformation'
     static_configs:
-      - targets: ['localhost:8000']
+      - targets: ['host.docker.internal:8000']
     metrics_path: '/metrics'
     scheme: 'http'
 
